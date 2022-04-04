@@ -1,17 +1,132 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+    <ion-title>แสดงผล </ion-title>
   </ion-toolbar>
+
+  <ion-item lines="none">
+    <ion-avatar slot="start">
+      <img src="../../assets/imgs/farmer.png" />
+    </ion-avatar>
+    <ion-label>
+      <p>สวัสดี,</p>
+      <h3>Mr Jomphon Kajangpho</h3>
+    </ion-label>
+  </ion-item>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="slides ion-margin-bottom">
+    <ion-grid class="ion-margin" style="color: black">
+      <ion-row no-padding>
+        <ion-col>
+          <img src="../../assets/imgs/sunny.png" width="40" height="40" />
+        </ion-col>
+        <ion-col>ความเข้มแสง</ion-col>
+        <ion-col style="text-align: right">
+          <ion-badge color="warning">{{readLux}} Lux</ion-badge>
+        </ion-col>
+      </ion-row>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+      <ion-row>
+        <ion-col>
+          <img src="../../assets/imgs/thermometer.png" width="40" height="40" />
+        </ion-col>
+        <ion-col>อุณหภูมิ</ion-col>
+        <ion-col style="text-align: right">
+          <ion-badge color="danger">{{readTemp}} C°</ion-badge>
+        </ion-col>
+      </ion-row>
+
+      <ion-row no-padding>
+        <ion-col>
+          <img src="../../assets/imgs/humidity.png" width="40" height="40" />
+        </ion-col>
+        <ion-col>ความชื้น</ion-col>
+        <ion-col style="text-align: right">
+          <ion-badge color="tertiary">{{readHum}} %</ion-badge>
+        </ion-col>
+      </ion-row>
+
+      <ion-row no-padding>
+        <ion-col style="text-align: center">
+          <ion-button color="primary" (click)="readSensor()">อ่านค่า</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="container">
+    <h3>You Setting</h3>
+
+    <ion-item lines="none">
+      <ion-grid>
+        <ion-row class="ion-align-items-center">
+          <ion-col>
+            <ion-label>
+              เวลาทำงาน
+            </ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label>
+            {{time_start1}} ถึง {{time_end1}}
+            </ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+          <ion-col>
+            <ion-label>
+              เวลารดน้ำที่ 1
+            </ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label>
+              {{time_start2}} ถึง {{time_end2}}
+            </ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+          <ion-col>
+            <ion-label>
+              เวลารดน้ำที่ 2
+            </ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label>
+              {{time_start3}} ถึง {{time_end3}}
+            </ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+          <ion-col>
+            <ion-label>
+              แสง
+            </ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label>
+              {{Lux_start}} ถึง {{Lux_end}} lux
+            </ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+          <ion-col>
+            <ion-label>
+              อุณภูมิ
+            </ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label>
+              {{temp_start}} ถึง {{temp_end}} C°
+            </ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+          <ion-col style="text-align: center">
+            <ion-button color="primary" (click)="readValue()">อ่านค่า</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+
+  </div>
 </ion-content>
