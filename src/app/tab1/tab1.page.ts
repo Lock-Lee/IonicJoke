@@ -23,7 +23,8 @@ export class Tab1Page implements OnInit {
   public  Lux_end;
   public  temp_start;
   public  temp_end;
-  constructor(public service: AppserviceService) {
+
+  constructor(public service: AppserviceService, public fb: AngularFireDatabase,) {
     
     this.service.message((val) => {
       if (val.topic == '/Jokeiot/Jokeiot/getSensor') {
@@ -36,12 +37,12 @@ export class Tab1Page implements OnInit {
     });
     this.service.message((val) => {
       if (val.topic == '/Jokeiot/Jokeiot/timeall') {
-        this.time_start1 = `${val.message}`.split(',')[0];
-        this.time_end1 = `${val.message}`.split(',')[1];
-        this.time_start2 = `${val.message}`.split(',')[2];
-        this.time_end2 = `${val.message}`.split(',')[3];
-        this.time_start3 = `${val.message}`.split(',')[4];
-        this.time_end3 = `${val.message}`.split(',')[6];
+        // this.time_start1 = `${val.message}`.split(',')[0];
+        // this.time_end1 = `${val.message}`.split(',')[1];
+        // this.time_start2 = `${val.message}`.split(',')[2];
+        // this.time_end2 = `${val.message}`.split(',')[3];
+        // this.time_start3 = `${val.message}`.split(',')[4];
+        // this.time_end3 = `${val.message}`.split(',')[6];
 
        
       }
@@ -74,9 +75,45 @@ export class Tab1Page implements OnInit {
     );
   }
   public readValue() {
-    this.service.publish(
-      `/readdata`,
-      `1`
-    );
+    this.fb
+      .object('set/time1')
+      .valueChanges()
+      .subscribe((value: any) => {
+        console.log(value);
+        this.time_start1 = value.split(',')[0];
+        this.time_end1 = value.split(',')[1];
+      });
+    this.fb
+      .object('set/time2')
+      .valueChanges()
+      .subscribe((value: any) => {
+        console.log(value);
+        this.time_start2 = value.split(',')[0];
+        this.time_end2 = value.split(',')[1];
+      });
+      this.fb
+      .object('set/time3')
+      .valueChanges()
+      .subscribe((value: any) => {
+        console.log(value);
+        this.time_start3 = value.split(',')[0];
+        this.time_end3 = value.split(',')[1];
+      });
+      this.fb
+      .object('set/setLux')
+      .valueChanges()
+      .subscribe((value: any) => {
+        console.log(value);
+        this.Lux_start = value.split(',')[0];
+        this.Lux_end = value.split(',')[1];
+      });
+    this.fb
+      .object('set/setTemp')
+      .valueChanges()
+      .subscribe((value: any) => {
+        console.log(value);
+        this.temp_start = value.split(',')[0];
+        this.temp_end = value.split(',')[1];
+      });
   }
 }

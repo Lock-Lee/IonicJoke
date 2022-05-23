@@ -16,6 +16,8 @@ export class Tab2Page implements OnInit {
   public setTimeEnd3: string = '--:--';
   public setTemp1: string = '';
   public setTemp2: string = '';
+  public setHum2: string = '';
+  public setHum1: string = '';
   public setLux1: string = '';
   public setLux2: string = '';
   constructor(
@@ -62,6 +64,14 @@ export class Tab2Page implements OnInit {
         console.log(value);
         this.setTemp1 = value.split(',')[0];
         this.setTemp2 = value.split(',')[1];
+      });
+      this.fb
+      .object('set/setHum')
+      .valueChanges()
+      .subscribe((value: any) => {
+        console.log(value);
+        this.setHum1 = value.split(',')[0];
+        this.setHum2 = value.split(',')[1];
       });
   }
 
@@ -144,7 +154,49 @@ export class Tab2Page implements OnInit {
     return nr;
     var len = String(base).length - String(nr).length + 1;
   }
-  public SetLux(val: any, val2: any) {
+  
+  public SetTemp(val: any, val1: any) {
+    let str = 0;
+    this.setTemp1 = val;
+    this.setTemp2 = val1;
+   
+      Swal.fire({
+        title: 'ต้องการยืนยัน?',
+        text: '',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'ตกลง!',
+        cancelButtonText: 'ยกเลิก',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: 'สำเร็จ',
+            text: 'อุณภูมิและความชื้น ' + this.setTemp1 + 'และ' + this.setTemp2,
+            icon: 'success',
+            confirmButtonText: 'ตกลง',
+            timer: 1500,
+          });
+          this.fb
+            .object('set/setTemp')
+            .set(this.setTemp1 + ',' + this.setTemp2)
+            .then(() => {
+              this.service.publish(
+                `/setTemp`,
+                `${this.setTemp1},${this.setTemp2}`
+              );
+            });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire({
+            title: 'สำเร็จ',
+            text: 'ทำการยกเลิก',
+            icon: 'error',
+            timer: 1500,
+          });
+        }
+      });
+    
+  }
+   public SetLux(val: any, val2: any) {
     this.setLux1 = val;
     this.setLux2 = val2;
 
@@ -195,53 +247,5 @@ export class Tab2Page implements OnInit {
     }
   }
 
-  public SetTemp(val: any, val1: any) {
-    let str = 0;
-    this.setTemp1 = val;
-    this.setTemp2 = val1;
-    if (val <= 40 && val1 <= 40) {
-      Swal.fire({
-        title: 'ต้องการยืนยัน?',
-        text: '',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'ตกลง!',
-        cancelButtonText: 'ยกเลิก',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire({
-            title: 'สำเร็จ',
-            text: 'อุณภูมิ ' + this.setTemp1 + 'ถึง' + this.setTemp2,
-            icon: 'success',
-            confirmButtonText: 'ตกลง',
-            timer: 1500,
-          });
-          this.fb
-            .object('set/setTemp')
-            .set(this.setTemp1 + ',' + this.setTemp2)
-            .then(() => {
-              this.service.publish(
-                `/setTemp`,
-                `${this.setTemp1},${this.setTemp2}`
-              );
-            });
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          Swal.fire({
-            title: 'สำเร็จ',
-            text: 'ทำการยกเลิก',
-            icon: 'error',
-            timer: 1500,
-          });
-        }
-      });
-    } else {
-      Swal.fire({
-        title: 'อุหภูมิสุงเกินไป!',
-        text: 'โปรดใส่ไม่เกิน 40 องศา',
-        icon: 'error',
-        confirmButtonText: 'ตกลง',
-        timer: 1500,
-      });
-    }
-  }
+
 }

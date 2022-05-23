@@ -32,6 +32,8 @@ export class Tab3Page implements OnInit {
     this.status_con  =  this.service.present();
 
     this.service.message((val) => {
+      console.log(val);
+      
       if (val.topic == '/Jokeiot/Jokeiot/status') {
         this.door_status = `${val.message}`.split(',')[0];
         this.evap_status = `${val.message}`.split(',')[1];
@@ -124,6 +126,16 @@ export class Tab3Page implements OnInit {
     }
   };
   public readstatus() {
+    this.service.message((val) => {
+     
+      
+      if (val.topic == '/Jokeiot/Jokeiot/status') {
+        this.door_status = `${val.message}`.split(',')[0];
+        this.evap_status = `${val.message}`.split(',')[1];
+        this.light_status = `${val.message}`.split(',')[2];
+        this.status_water = `${val.message}`.split(',')[3];
+      }
+    });
     this.service.publish(`/readstatus`, `1`);
     
     this.status_con  =  this.service.present();

@@ -32,7 +32,7 @@
       ></ion-toggle>
     </ion-item> -->
     <ion-item>
-      <ion-label>เปิดการรับแสง</ion-label>
+      <ion-label>เปิดม่านบังแสง</ion-label>
       <ion-toggle
         [(ngModel)]="dooron"
         (ionChange)="onClickonDoor($event)"
@@ -42,7 +42,7 @@
       ></ion-toggle>
     </ion-item>
     <ion-item>
-      <ion-label>ปิดการรับแสง</ion-label>
+      <ion-label>ปิดม่านบังแสง</ion-label>
       <ion-toggle
         slot="end"
         [(ngModel)]="dooroff"
@@ -97,9 +97,9 @@
         <!-- <ion-icon name="sad-outline" slot="end" color="danger"></ion-icon> -->
       </ion-item>
       <ion-item>
-        หลังคา
+        ม่านบังแสง
         <ion-label slot="end" color="success"
-          >{{door_status==="on" ? "ON":"OFF"}}</ion-label
+          >{{door_status==="1" ? "ON":"OFF"}}</ion-label
         >
         <!-- <ion-icon name="sad-outline" slot="end" color="danger"></ion-icon> -->
       </ion-item>
@@ -107,7 +107,7 @@
       <ion-item>
         E-vap
         <ion-label slot="end" color="success"
-          >{{evap_status ==="on" ? "ON":"OFF"}}</ion-label
+          >{{evap_status ==="1" ? "ON":"OFF"}}</ion-label
         >
         <!-- <ion-icon name="happy-outline" slot="end" color="success"></ion-icon> -->
       </ion-item>
@@ -115,14 +115,14 @@
       <ion-item>
         หลอดไฟให้แสง
         <ion-label slot="end" color="success"
-          >{{light_status ==="on" ? "ON":"OFF"}}</ion-label
+          >{{light_status ==="1" ? "ON":"OFF"}}</ion-label
         >
         <!-- <ion-icon name="happy-outline" slot="end" color="success"></ion-icon> -->
       </ion-item>
       <ion-item>
         ปั๊มน้ำ
         <ion-label slot="end" color="success"
-          >{{light_status ==="on" ? "ON":"OFF"}}</ion-label
+          >{{status_water ==="1" ? "ON":"OFF"}}</ion-label
         >
         <!-- <ion-icon name="happy-outline" slot="end" color="success"></ion-icon> -->
       </ion-item>
